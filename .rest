@@ -22,3 +22,14 @@ content-type: application/json
 "content": "this is a note to test the functionality of the createNote function controller",
 "date": ""
 }
+
+
+###
+PUT http://localhost:3000/notes/65b55f983336cefadc8c7327 HTTP/1.1
+content-type: application/json
+
+{
+"title": "new note6",
+"content": "Testing the updateNote Controller function!!",
+"date": ""
+}

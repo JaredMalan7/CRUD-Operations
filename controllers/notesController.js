@@ -77,10 +77,48 @@ const createNote = async (req, res) => {
     }
 }
 
+//PUT an update in the note requested by ObejectId from the database
+const updateNote = async (req, res) => {
+    try {
+        const noteId = req.params.id
 
+        if (!ObjectId.isValid(noteId)) {
+            return res.status(400).json({ error: 'Invalid ObjectId' })
+        }
+
+        const { title, content, date } = req.body
+
+        if (!title || !content) {
+            return res.status(400).json({ error: 'Title and content are required' })
+        }
+
+        const updatedNote = {
+            title,
+            content,
+            date
+        }
+
+        const result = await mongodb.getDatabase().db().collection('Notes').updateOne(
+            { _id: new ObjectId(noteId) },
+            { $set: updatedNote }
+        )
+
+        if (result.modifiedCount !== 1) {
+            return res.status(500).json({ error: 'Failed to update the note' })
+        }
+
+        console.log('Updated Note:', updatedNote)
+        res.setHeader('Content-Type', 'application/json')
+        res.status(200).json(updatedNote)
+    } catch (error) {
+        console.error('Error updating Note:', error)
+        res.status(500).json({ error: 'Internal Server Error' })
+    }
+}
 
 module.exports = {
     getAllNotes,
     getSingleNote,
-    createNote
-} 
+    createNote,
+    updateNote
+}
