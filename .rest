@@ -33,3 +33,8 @@ content-type: application/json
 "content": "Testing the updateNote Controller function!!",
 "date": ""
 }
+
+###
+DELETE  http://localhost:3000/notes/65b55f983336cefadc8c7327 HTTP/1.1
+
+

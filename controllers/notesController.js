@@ -116,9 +116,33 @@ const updateNote = async (req, res) => {
     }
 }
 
+//DELETE a note by ObjectId from the database
+const deleteNote = async (req, res) => {
+    try {
+        const noteId = req.params.id
+
+        if (!ObjectId.isValid(noteId)) {
+            return res.status(400).json({ error: 'Invalid ObjectId' })
+        }
+
+        const result = await mongodb.getDatabase().db().collection('Notes').deleteOne({ _id: new ObjectId(noteId) })
+
+        if (result.deletedCount !== 1) {
+            return res.status(404).json({ error: 'Note not found' })
+        }
+
+        console.log('Deleted Note with ID:', noteId)
+        res.status(200).json({ message: 'Note deleted successfully' })
+    } catch (error) {
+        console.error('Error deleting Note:', error)
+        res.status(500).json({ error: 'Internal Server Error' })
+    }
+}
+
 module.exports = {
     getAllNotes,
     getSingleNote,
     createNote,
-    updateNote
+    updateNote,
+    deleteNote
 }
