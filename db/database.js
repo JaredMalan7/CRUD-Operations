@@ -2,15 +2,24 @@ require('dotenv').config()
 const MongoClient = require('mongodb').MongoClient
 
 let database
-
 const initDb = (callback) => {
     if (database) {
-        console.log(`Database is already initiated!`)
+        console.log('Database is already initiated!')
         return callback(null, database)
     }
-    MongoClient.connect(process.env.MONGO_URL)
+
+    const mongoUrl = process.env.MONGO_URL
+
+    if (!mongoUrl) {
+        const errorMessage = 'MONGO_URL not provided in environment variables'
+        console.error(errorMessage)
+        return callback(new Error(errorMessage))
+    }
+
+    MongoClient.connect(mongoUrl)
         .then((client) => {
             database = client
+            console.log('MongoDB connected successfully!')
             callback(null, database)
         })
         .catch((err) => {
@@ -18,6 +27,8 @@ const initDb = (callback) => {
             callback(err)
         })
 }
+
+
 
 const getDatabase = () => {
     if (!database) {
