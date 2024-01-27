@@ -40,7 +40,47 @@ const getSingleNote = async (req, res) => {
     }
 }
 
+//POST a new note to the database
+const createNote = async (req, res) => {
+    try {
+        const { title, content, date } = req.body
+
+        if (!title || !content) {
+            return res.status(400).json({ error: 'Title and content are required' })
+        }
+
+        const newNote = {
+            title,
+            content,
+            date
+        }
+
+        const response = await mongodb.getDatabase().db().collection('Notes').insertOne(newNote)
+
+        if (response.acknowledged) {
+
+            const insertedId = response.insertedId
+            console.log('Insert result:', response)
+
+            res.status(201).json({
+                title,
+                content,
+                date,
+                _id: insertedId
+            })
+        } else {
+            res.status(500).json(response.error || 'Failed to create a new note')
+        }
+    } catch (error) {
+        console.error('Error creating Note:', error)
+        res.status(500).json({ error: 'Internal Server Error' })
+    }
+}
+
+
+
 module.exports = {
     getAllNotes,
     getSingleNote,
+    createNote
 } 

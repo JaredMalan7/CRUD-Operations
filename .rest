@@ -4,9 +4,6 @@ GET http://localhost:3000 HTTP/1.1
 GET http://localhost:3000/notes HTTP/1.1
 
 
-
-
-
 ### Render link request
 GET https://crud-operations-dobg.onrender.com/ HTTP/1.1
 
@@ -15,3 +12,13 @@ GET https://crud-operations-dobg.onrender.com/notes HTTP/1.1
 
 ###
 GET http://localhost:3000/notes/65b53885244978d9870636af HTTP/1.1
+
+###
+POST http://localhost:3000/notes/ HTTP/1.1
+content-type: application/json
+
+{
+"title": "new note6",
+"content": "this is a note to test the functionality of the createNote function controller",
+"date": ""
+}
