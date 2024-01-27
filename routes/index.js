@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
     res.send('Welcome to my CRUD Operations project')
 })
 //Notes route
+//#swagger.tags=['CRUD REQUESTS']
 router.use('/notes', notesRoute)
 router.use('/api-docs', require('./swagger'))
 

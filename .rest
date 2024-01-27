@@ -21,7 +21,7 @@ content-type: application/json
 {
 "title": "new note6",
 "content": "this is a note to test the functionality of the createNote function controller",
-"date": ""
+"date": "1/27/2024"
 }
 
 
@@ -32,7 +32,7 @@ content-type: application/json
 {
 "title": "new note6",
 "content": "Testing the updateNote Controller function!!",
-"date": ""
+"date": "1/27/2024"
 }
 
 ###

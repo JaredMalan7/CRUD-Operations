@@ -27,7 +27,9 @@
     },
     "/notes/": {
       "get": {
-        "tags": [],
+        "tags": [
+            "CRUD Requests"
+        ],
         "description": "",
         "produces": [
           "application/json"
@@ -42,7 +44,7 @@
         }
       },
       "post": {
-        "tags": [],
+        "tags": ["CRUD Requests"],
         "description": "",
         "parameters": [
           {
@@ -79,7 +81,7 @@
     },
     "/notes/{id}": {
       "get": {
-        "tags": [],
+        "tags": ["CRUD Requests"],
         "description": "",
         "produces": [
           "application/json"
@@ -108,7 +110,7 @@
         }
       },
       "put": {
-        "tags": [],
+        "tags": ["CRUD Requests"],
         "description": "",
         "produces": [
           "application/json"
@@ -152,7 +154,7 @@
         }
       },
       "delete": {
-        "tags": [],
+        "tags": ["CRUD Requests"],
         "description": "",
         "parameters": [
           {
