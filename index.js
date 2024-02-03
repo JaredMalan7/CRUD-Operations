@@ -4,6 +4,8 @@ const app = express()
 const mongodb = require('./db/database')
 const routes = require('./routes')
 const port = process.env.PORT || 3000
+const passport = require('passport')
+const GitHubStrategy = require('passport-github2').Strategy
 
 app.use(bodyParser.json())
 
