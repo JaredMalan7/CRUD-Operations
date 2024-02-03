@@ -1,5 +1,5 @@
 const mongodb = require('../db/database')
-const ObjectId = require('mongodb').ObjectId
+const { ObjectId } = require('mongodb')
 
 
 //GET all the notes from the database 

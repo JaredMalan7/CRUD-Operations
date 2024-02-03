@@ -5,8 +5,6 @@ const notesRoute = require('./notesRoute')
 
 console.log('Routes module loaded.')
 
-
-
 //This is the landing page
 router.get('/', (req, res) => {
     //#swagger.tags=['Welcome to my CRUD Operations project']

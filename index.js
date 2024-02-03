@@ -1,18 +1,18 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
-const mongodb = require('./db/database')
 const routes = require('./routes')
 const port = process.env.PORT || 3000
 const passport = require('passport')
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session)
 const GitHubStrategy = require('passport-github2').Strategy
+const mongodb = require('./db/database')
 
 app.use(bodyParser.json())
-
+const uri = process.env.MONGO_URL.replace('mongodb://', 'mongodb+srv://') + '?retryWrites=true&w=majority'
 const store = new MongoDBStore({
-    uri: process.env.MONGO_URL,
+    uri: uri,
     collection: 'sessions',
 })
 
