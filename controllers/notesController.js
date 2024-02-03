@@ -5,6 +5,13 @@ const ObjectId = require('mongodb').ObjectId
 //GET all the notes from the database 
 const getAllNotes = async (req, res) => {
     //#swagger.tags['Notes']
+
+    // Check if there are any unexpected query parameters
+    const unexpectedParams = Object.keys(req.query).filter(param => ![''].includes(param))
+    if (unexpectedParams.length > 0) {
+        return res.status(400).json({ error: 'Unexpected query parameters' })
+    }
+
     try {
         const result = await mongodb.getDatabase().db().collection('Notes').find({});
         const notes = await result.toArray();
@@ -21,9 +28,22 @@ const getAllNotes = async (req, res) => {
 const getSingleNote = async (req, res) => {
     //#swagger.tags['Notes']
     try {
-        const noteId = req.params.id;
+        const noteId = req.params.id
+
+        // Check if the 'id' parameter is provided
+        if (!noteId) {
+            return res.status(400).json({ error: 'Note ID is required' })
+        }
+
+        // Check if 'id' is a valid ObjectId
         if (!ObjectId.isValid(noteId)) {
-            return res.status(400).json({ error: 'Invalid ObjectId' });
+            return res.status(400).json({ error: 'Invalid ObjectId' })
+        }
+
+        // Check if there are any unexpected query parameters
+        const unexpectedParams = Object.keys(req.query).filter(param => ![''].includes(param))
+        if (unexpectedParams.length > 0) {
+            return res.status(400).json({ error: 'Unexpected query parameters' })
         }
 
         const result = await mongodb.getDatabase().db().collection('Notes').findOne({ _id: new ObjectId(noteId) })
@@ -33,10 +53,10 @@ const getSingleNote = async (req, res) => {
         }
 
         console.log('Retrieved Note:', result)
-        res.setHeader('Content-Type', 'application/json');
+        res.setHeader('Content-Type', 'application/json')
         res.status(200).json(result)
     } catch (error) {
-        console.error('Error retrieving Note:', error);
+        console.error('Error retrieving Note:', error)
         res.status(500).json({ error: 'Internal Server Error' })
     }
 }
@@ -47,8 +67,14 @@ const createNote = async (req, res) => {
     try {
         const { title, content, date } = req.body
 
+        // Check if 'title' and 'content' are provided
         if (!title || !content) {
             return res.status(400).json({ error: 'Title and content are required' })
+        }
+
+        // Check if 'title' and 'content' are strings
+        if (typeof title !== 'string' || typeof content !== 'string') {
+            return res.status(400).json({ error: 'Title and content must be strings' })
         }
 
         const newNote = {
@@ -79,21 +105,30 @@ const createNote = async (req, res) => {
     }
 }
 
+
 //PUT an update in the note requested by ObejectId from the database
 const updateNote = async (req, res) => {
     //#swagger.tags['Notes']
     try {
         const noteId = req.params.id
 
+        // Check if 'noteId' is a valid ObjectId
         if (!ObjectId.isValid(noteId)) {
             return res.status(400).json({ error: 'Invalid ObjectId' })
         }
 
         const { title, content, date } = req.body
 
+        // Check if 'title' and 'content' are provided
         if (!title || !content) {
             return res.status(400).json({ error: 'Title and content are required' })
         }
+
+        // Check if 'title' and 'content' are strings
+        if (typeof title !== 'string' || typeof content !== 'string') {
+            return res.status(400).json({ error: 'Title and content must be strings' })
+        }
+
 
         const updatedNote = {
             title,
@@ -119,18 +154,21 @@ const updateNote = async (req, res) => {
     }
 }
 
+
 //DELETE a note by ObjectId from the database
 const deleteNote = async (req, res) => {
     //#swagger.tags['Notes']
     try {
         const noteId = req.params.id
 
+        // Check if 'noteId' is a valid ObjectId
         if (!ObjectId.isValid(noteId)) {
             return res.status(400).json({ error: 'Invalid ObjectId' })
         }
 
         const result = await mongodb.getDatabase().db().collection('Notes').deleteOne({ _id: new ObjectId(noteId) })
 
+        // Check if a note was actually deleted
         if (result.deletedCount !== 1) {
             return res.status(404).json({ error: 'Note not found' })
         }
@@ -142,6 +180,7 @@ const deleteNote = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' })
     }
 }
+
 
 module.exports = {
     getAllNotes,
