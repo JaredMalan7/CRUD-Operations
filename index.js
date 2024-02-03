@@ -6,20 +6,29 @@ const routes = require('./routes')
 const port = process.env.PORT || 3000
 const passport = require('passport')
 const session = require('express-session')
+const MongoDBStore = require('connect-mongodb-session')(session)
 const GitHubStrategy = require('passport-github2').Strategy
-
 
 app.use(bodyParser.json())
 
+const store = new MongoDBStore({
+    uri: process.env.MONGO_URL,
+    collection: 'sessions',
+})
+
+store.on('error', function (error) {
+    console.log(error)
+})
+
 app.use(session({
-    secret: "secret",
+    secret: 'your-secret-key',
     resave: false,
     saveUninitialized: true,
+    store: store,
 }))
-    //express session({...}) initialization
-    .use(passport.initialize())
-    // initilize passport on every route call
-    .use(passport.session())
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
@@ -35,25 +44,25 @@ passport.use(new GitHubStrategy({
     callbackURL: process.env.CALLBACK_URL
 },
     function (accessToken, refreshToken, profile, done) {
-        //User.findOrCreate({ gitHubId: profile.id}, function (err, user) {
         return done(null, profile)
-        //})
     }
-
-
 ))
 
 passport.serializeUser((user, done) => {
     done(null, user)
 })
+
 passport.deserializeUser((user, done) => {
     done(null, user)
 })
 
-app.get('/', (req, res) => { res.send(req.session.user !== undefined ? `logged in as ${req.session.user.displayName}` : "Logged Out") })
+app.get('/', (req, res) => {
+    res.send(req.session.user !== undefined ? `logged in as ${req.session.user.displayName}` : "Logged Out")
+})
 
 app.get('/github/callback', passport.authenticate('github', {
-    failureRedirect: '/api-docs', session: false
+    failureRedirect: '/api-docs',
+    session: false
 }),
     (req, res) => {
         req.session.user = req.user
@@ -64,8 +73,6 @@ app.get('/github/callback', passport.authenticate('github', {
 console.log('Starting server...')
 app.use('/', routes)
 
-
-
 mongodb.initDb((err) => {
     if (err) {
         console.log(err)
@@ -75,4 +82,3 @@ mongodb.initDb((err) => {
         })
     }
 })
-
