@@ -5,7 +5,7 @@ const doc = {
         title: 'CRUD-Operations Api',
         description: 'This is a note-taker Api'
     },
-    host: 'localhost:3000',
+    host: 'https://cru-operations-authenticated.onrender.com/',
     schemes: ['http', 'https']
 }
 

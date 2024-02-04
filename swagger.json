@@ -5,7 +5,7 @@
     "description": "This is a note-taker Api",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "https://cru-operations-authenticated.onrender.com/",
   "basePath": "/",
   "schemes": [
     "http",
