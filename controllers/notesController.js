@@ -4,7 +4,7 @@ const { ObjectId } = require('mongodb')
 
 //GET all the notes from the database 
 const getAllNotes = async (req, res) => {
-    //#swagger.tags['Notes']
+    //#swagger.tags=['CRUD Operations']
 
     // Check if there are any unexpected query parameters
     const unexpectedParams = Object.keys(req.query).filter(param => ![''].includes(param))
@@ -26,7 +26,7 @@ const getAllNotes = async (req, res) => {
 
 //GET a single note from the database by ObjectId
 const getSingleNote = async (req, res) => {
-    //#swagger.tags['Notes']
+    //#swagger.tags=['CRUD Operations']
     try {
         const noteId = req.params.id
 
@@ -63,7 +63,7 @@ const getSingleNote = async (req, res) => {
 
 //POST a new note to the database
 const createNote = async (req, res) => {
-    //#swagger.tags['Notes']
+    //#swagger.tags=['CRUD Operations']
     try {
         const { title, content, date } = req.body
 
@@ -108,7 +108,7 @@ const createNote = async (req, res) => {
 
 //PUT an update in the note requested by ObejectId from the database
 const updateNote = async (req, res) => {
-    //#swagger.tags['Notes']
+    //#swagger.tags=['CRUD Operations']
     try {
         const noteId = req.params.id
 
@@ -157,7 +157,7 @@ const updateNote = async (req, res) => {
 
 //DELETE a note by ObjectId from the database
 const deleteNote = async (req, res) => {
-    //#swagger.tags['Notes']
+    //#swagger.tags=['CRUD Operations']
     try {
         const noteId = req.params.id
 

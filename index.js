@@ -9,6 +9,15 @@ const MongoDBStore = require('connect-mongodb-session')(session)
 const GitHubStrategy = require('passport-github2').Strategy
 const mongodb = require('./db/database')
 
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept, z-key')
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+    next()
+})
+
+
 app.use(bodyParser.json())
 const uri = process.env.MONGO_URL.replace('mongodb://', 'mongodb+srv://') + '?retryWrites=true&w=majority'
 const store = new MongoDBStore({
@@ -30,13 +39,6 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader('Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept, z-key')
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-    next()
-})
 
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
@@ -57,7 +59,9 @@ passport.deserializeUser((user, done) => {
 })
 
 app.get('/', (req, res) => {
-    res.send(req.session.user !== undefined ? `logged in as ${req.session.user.displayName}` : "Logged Out")
+    // res.send(req.session.user !== undefined ? `logged in as ${req.session.user.displayName}` : 'You are Logged Out\n<a href="https://cru-operations-authenticated.onrender.com/login" target="_blank">Click Here to Login</a>')
+
+    res.send(req.session.user !== undefined ? `logged in as ${req.session.user.displayName} <br><br><a href="http://localhost:3000/api-docs">API Documentation</a>` : 'You are Logged Out<br><br><a href="http://localhost:3000/login">Click Here to Login</a>')
 })
 
 app.get('/github/callback', passport.authenticate('github', {
