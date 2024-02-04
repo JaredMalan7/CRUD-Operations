@@ -6,7 +6,7 @@ const doc = {
         description: 'This is a note-taker Api'
     },
     host: 'cru-operations-authenticated.onrender.com',
-    schemes: ['http', 'https']
+    schemes: ['https', 'http']
 }
 
 const outputFile = './swagger.json'

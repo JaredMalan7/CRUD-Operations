@@ -8,8 +8,8 @@
   "host": "cru-operations-authenticated.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http",
-    "https"
+    "https",
+    "http"
   ],
   "paths": {
     "/login": {
