@@ -37,7 +37,7 @@ passport.use(
             clientID: process.env.GITHUB_CLIENT_ID,
             clientSecret: process.env.GITHUB_CLIENT_SECRET,
             callbackURL: process.env.CALLBACK_URL,
-            scope: ['getAllNotes', 'getSingleNote', 'createNote', 'updateNote', 'deleteNote'],
+            // scope: ['getAllNotes', 'getSingleNote', 'createNote', 'updateNote', 'deleteNote'],
         },
         function (accessToken, refreshToken, profile, done) {
 
