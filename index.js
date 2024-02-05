@@ -37,7 +37,7 @@ passport.use(
             clientID: process.env.GITHUB_CLIENT_ID,
             clientSecret: process.env.GITHUB_CLIENT_SECRET,
             callbackURL: process.env.CALLBACK_URL,
-            scope: ['read', 'getAllNotes', 'getSingleNote', 'createNote', 'updateNote', 'deleteNote'],
+            scope: ['getAllNotes', 'getSingleNote', 'createNote', 'updateNote', 'deleteNote'],
         },
         function (accessToken, refreshToken, profile, done) {
 
@@ -69,7 +69,7 @@ app.get(
         session: false,
     }),
     (req, res) => {
-        console.log('Granted Scopes:', req.authInfo.scope)
+
         req.session.user = req.user
         res.redirect('/api-docs')
     }

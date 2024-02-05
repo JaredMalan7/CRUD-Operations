@@ -393,7 +393,7 @@
   "security": [
     {
       "GitHubOAuth": [
-        "read"
+        ""
       ]
     }
   ]
