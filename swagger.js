@@ -11,15 +11,15 @@ const doc = {
         GitHubOAuth: {
             type: 'oauth2',
             authorizationUrl: 'https://cru-operations-authenticated.onrender.com/github/callback',
-            // tokenUrl: 'http://github.com/login/oauth/access_token',
+            tokenUrl: 'http://github.com/login/oauth/access_token',
             // flow: 'accessCode',
-            scopes: {
-                // getAllNotes: 'Grants access to get all notes',
-                // getSingleNote: 'Grants access to get a single note',
-                // createNote: 'Grants access to create a new note',
-                // updateNote: 'Grants access to update a note',
-                // deleteNote: 'Grants access to delete a note'
-            },
+            //scopes: {
+            // getAllNotes: 'Grants access to get all notes',
+            // getSingleNote: 'Grants access to get a single note',
+            // createNote: 'Grants access to create a new note',
+            // updateNote: 'Grants access to update a note',
+            // deleteNote: 'Grants access to delete a note'
+            // },
         },
     },
     security: [
