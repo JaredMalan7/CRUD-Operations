@@ -5,18 +5,16 @@
     "description": "This is a note-taker Api",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "cru-operations-authenticated.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http",
-    "https"
+    "https",
+    "http"
   ],
   "securityDefinitions": {
     "GitHubOAuth": {
       "type": "oauth2",
-      "authorizationUrl": "http://localhost:3000/github/callback",
-      "tokenUrl": "http://github.com/login/oauth/access_token",
-      "flow": "accessCode",
+      "authorizationUrl": "https://cru-operations-authenticated.onrender.com/github/callback",
       "scopes": {}
     }
   },
@@ -227,16 +225,6 @@
           },
           "500": {
             "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api-docs/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
           }
         }
       }

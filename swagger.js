@@ -11,8 +11,8 @@ const doc = {
         GitHubOAuth: {
             type: 'oauth2',
             authorizationUrl: 'https://cru-operations-authenticated.onrender.com/github/callback',
-            tokenUrl: 'http://github.com/login/oauth/access_token',
-            flow: 'accessCode',
+            // tokenUrl: 'http://github.com/login/oauth/access_token',
+            // flow: 'accessCode',
             scopes: {
                 // getAllNotes: 'Grants access to get all notes',
                 // getSingleNote: 'Grants access to get a single note',
