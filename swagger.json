@@ -5,7 +5,7 @@
     "description": "This is a note-taker Api",
     "version": "1.0.0"
   },
-  "host": "cru-operations-authenticated.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
     "http",
@@ -14,11 +14,15 @@
   "securityDefinitions": {
     "GitHubOAuth": {
       "type": "oauth2",
-      "authorizationUrl": "https://github.com/login/oauth/authorize",
-      "tokenUrl": "https://github.com/login/oauth/access_token",
+      "authorizationUrl": "http://localhost:3000/github/callback",
+      "tokenUrl": "http://github.com/login/oauth/access_token",
       "flow": "accessCode",
       "scopes": {
-        "read": "Grants read access to user profile"
+        "getAllNotes": "Grants access to get all notes",
+        "getSingleNote": "Grants access to get a single note",
+        "createNote": "Grants access to create a new note",
+        "updateNote": "Grants access to update a note",
+        "deleteNote": "Grants access to delete a note"
       }
     }
   },
@@ -229,6 +233,158 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api-docs/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "NoteInput": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "example": "object"
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "Sample Title"
+                }
+              }
+            },
+            "content": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "Sample Content"
+                }
+              }
+            },
+            "date": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "2024-01-01"
+                }
+              }
+            }
+          }
+        },
+        "required": {
+          "type": "array",
+          "example": [
+            "title",
+            "content"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Note": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "example": "object"
+        },
+        "properties": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "ObjectId"
+                }
+              }
+            },
+            "title": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "Sample Title"
+                }
+              }
+            },
+            "content": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "Sample Content"
+                }
+              }
+            },
+            "date": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "example": {
+                  "type": "string",
+                  "example": "2024-01-01"
+                }
+              }
+            }
+          }
+        },
+        "required": {
+          "type": "array",
+          "example": [
+            "_id",
+            "title",
+            "content"
+          ],
+          "items": {
+            "type": "string"
           }
         }
       }
