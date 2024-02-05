@@ -55,26 +55,16 @@ passport.deserializeUser((user, done) => {
 })
 
 app.get('/', (req, res) => {
-    // THIS IS FOR LOCAL HOST TESTING
-    // res.send(
-    //     req.session.user !== undefined
-    //        (? `logged in as ${req.session.user.displayName} <br><br><a href="http://localhost:3000/api-docs">API Documentation<a>`
-    //         : 'You are Logged Out<br><br><a href="http://localhost:3000/login">Click Here to Login</a>'
-    // )
+    res.send(req.session.user !== undefined ? `logged in as ${req.session.user.displayName} <br><br><a href="https://cru-operations-authenticated.onrender.com/api-docs">API Documentation</a>` : 'You are Logged Out<br><br><a href="https://cru-operations-authenticated.onrender.com/login" target="_blank">Click Here to Login</a>')
 
-    res.send(
-        req.session.user !== undefined
-            ? `logged in as ${req.session.user.displayName} <br><br><a href="https://cru-operations-authenticated.onrender.com/api-docs">API Documentation</a>`
-            : 'You are Logged Out<br><br><a href="https://cru-operations-authenticated.onrender.com/login">Click Here to Login</a>'
-    )
+    //THIS IS FOR TESTING IN THE LOCAL SERVER
+    // res.send(req.session.user !== undefined ? `logged in as ${req.session.user.displayName} <br><br><a href="http://localhost:3000/api-docs">API Documentation</a>` : 'You are Logged Out<br><br><a href="http://localhost:3000/login">Click Here to Login</a>')
 })
 
-app.get(
-    '/github/callback',
-    passport.authenticate('github', {
-        failureRedirect: '/api-docs',
-        session: false,
-    }),
+app.get('/github/callback', passport.authenticate('github', {
+    failureRedirect: '/api-docs',
+    session: false,
+}),
     (req, res) => {
 
         req.session.user = req.user
