@@ -8,9 +8,20 @@
   "host": "cru-operations-authenticated.onrender.com",
   "basePath": "/",
   "schemes": [
-    "https",
-    "http"
+    "http",
+    "https"
   ],
+  "securityDefinitions": {
+    "GitHubOAuth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://github.com/login/oauth/authorize",
+      "tokenUrl": "https://github.com/login/oauth/access_token",
+      "flow": "accessCode",
+      "scopes": {
+        "read": "Grants read access to user profile"
+      }
+    }
+  },
   "paths": {
     "/login": {
       "get": {
@@ -222,5 +233,12 @@
         }
       }
     }
-  }
+  },
+  "security": [
+    {
+      "GitHubOAuth": [
+        "read"
+      ]
+    }
+  ]
 }
