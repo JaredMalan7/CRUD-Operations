@@ -55,10 +55,17 @@ passport.deserializeUser((user, done) => {
 })
 
 app.get('/', (req, res) => {
+    // THIS IS FOR LOCAL HOST TESTING
+    // res.send(
+    //     req.session.user !== undefined
+    //        (? `logged in as ${req.session.user.displayName} <br><br><a href="http://localhost:3000/api-docs">API Documentation<a>`
+    //         : 'You are Logged Out<br><br><a href="http://localhost:3000/login">Click Here to Login</a>'
+    // )
+
     res.send(
         req.session.user !== undefined
-            ? `logged in as ${req.session.user.displayName} <br><br><a href="http://localhost:3000/api-docs">API Documentation</a>`
-            : 'You are Logged Out<br><br><a href="http://localhost:3000/login">Click Here to Login</a>'
+            ? `logged in as ${req.session.user.displayName} <br><br><a href="https://cru-operations-authenticated.onrender.com/api-docs">API Documentation</a>`
+            : 'You are Logged Out<br><br><a href="https://cru-operations-authenticated.onrender.com/login">Click Here to Login</a>'
     )
 })
 
@@ -71,7 +78,7 @@ app.get(
     (req, res) => {
 
         req.session.user = req.user
-        res.redirect('/api-docs')
+        res.redirect('/')
     }
 )
 

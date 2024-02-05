@@ -5,26 +5,26 @@ const doc = {
         title: 'CRUD-Operations Api',
         description: 'This is a note-taker Api'
     },
-    host: 'localhost:3000',
-    schemes: ['http', 'https'],
+    host: 'cru-operations-authenticated.onrender.com',
+    schemes: ['https', 'http'],
     securityDefinitions: {
         GitHubOAuth: {
             type: 'oauth2',
-            authorizationUrl: 'http://localhost:3000/github/callback',
+            authorizationUrl: 'https://cru-operations-authenticated.onrender.com/github/callback',
             tokenUrl: 'http://github.com/login/oauth/access_token',
             flow: 'accessCode',
             scopes: {
-                getAllNotes: 'Grants access to get all notes',
-                getSingleNote: 'Grants access to get a single note',
-                createNote: 'Grants access to create a new note',
-                updateNote: 'Grants access to update a note',
-                deleteNote: 'Grants access to delete a note'
+                // getAllNotes: 'Grants access to get all notes',
+                // getSingleNote: 'Grants access to get a single note',
+                // createNote: 'Grants access to create a new note',
+                // updateNote: 'Grants access to update a note',
+                // deleteNote: 'Grants access to delete a note'
             },
         },
     },
     security: [
         {
-            GitHubOAuth: ['read'],
+            GitHubOAuth: [],
         },
     ],
     paths: {
@@ -33,7 +33,7 @@ const doc = {
                 tags: ['CRUD Operations'],
                 summary: 'Get all notes',
                 description: 'Get all the notes from the database',
-                security: [{ GitHubOAuth: ['read'] }],
+                security: [{ GitHubOAuth: ['getAllNotes'] }],
                 responses: {
                     200: {
                         description: 'OK',
@@ -56,7 +56,7 @@ const doc = {
                 tags: ['CRUD Operations'],
                 summary: 'Create a new note',
                 description: 'POST a new note to the database',
-                security: [{ GitHubOAuth: ['read'] }],
+                security: [{ GitHubOAuth: ['createNote'] }],
                 parameters: [
                     {
                         name: 'body',
@@ -91,7 +91,7 @@ const doc = {
                 tags: ['CRUD Operations'],
                 summary: 'Get a single note by ID',
                 description: 'Get a single note from the database by ObjectId',
-                security: [{ GitHubOAuth: ['read'] }],
+                security: [{ GitHubOAuth: ['getSingleNote'] }],
                 parameters: [
                     {
                         name: 'id',
@@ -125,7 +125,7 @@ const doc = {
                 tags: ['CRUD Operations'],
                 summary: 'Update a note by ID',
                 description: 'PUT an update in the note requested by ObjectId from the database',
-                security: [{ GitHubOAuth: ['read'] }],
+                security: [{ GitHubOAuth: ['updateNote'] }],
                 parameters: [
                     {
                         name: 'id',
@@ -164,7 +164,7 @@ const doc = {
                 tags: ['CRUD Operations'],
                 summary: 'Delete a note by ID',
                 description: 'DELETE a note by ObjectId from the database',
-                security: [{ GitHubOAuth: ['read'] }],
+                security: [{ GitHubOAuth: ['deleteNote'] }],
                 parameters: [
                     {
                         name: 'id',
