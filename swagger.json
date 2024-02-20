@@ -15,7 +15,14 @@
     "GitHubOAuth": {
       "type": "oauth2",
       "authorizationUrl": "https://cru-operations-authenticated.onrender.com/github/callback",
-      "tokenUrl": "http://github.com/login/oauth/access_token"
+      "tokenUrl": "http://github.com/login/oauth/access_token",
+      "scopes": {
+        "getAllNotes": "Grants access to get all notes",
+        "getSingleNote": "Grants access to get a single note",
+        "createNote": "Grants access to create a new note",
+        "updateNote": "Grants access to update a note",
+        "deleteNote": "Grants access to delete a note"
+      }
     }
   },
   "paths": {
@@ -225,6 +232,16 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api-docs/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
           }
         }
       }

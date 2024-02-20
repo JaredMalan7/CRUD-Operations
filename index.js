@@ -11,24 +11,24 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 app.use(bodyParser.json())
-
-app.use(
-    session({
-        secret: 'your-secret-key',
-        resave: false,
-        saveUninitialized: true,
-    })
-)
-
-app.use(passport.initialize())
-app.use(passport.session())
-
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, z-key')
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
     next()
 })
+
+
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+})
+)
+
+app.use(passport.initialize())
+app.use(passport.session())
+
 
 
 passport.use(
